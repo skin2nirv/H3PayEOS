@@ -1,0 +1,158 @@
+import * as React from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import {
+	Login,
+	FindID,
+	SignUp,
+	TermsDetail,
+	FindPW,
+	FindPWStep1,
+	FindPWStep2,
+	FindPWStep3e,
+	AcceptTerms,
+	FindIDStep1,
+	FindIDStep2e,
+	SignUpStep1e,
+} from '@views/pages/LoginStack';
+import { ChangePW, Notice, SideMenu } from '@views/pages/DrawerNavigator';
+import {
+	MyWallet,
+	QRforPay,
+	TxHistory,
+	WalletSetting,
+	TxResult,
+	MerchantList,
+	SendWafl,
+	ReceiveWafl,
+	SendWaflStep1e,
+	MerchantListFullMap,
+} from '@views/pages/MainStack';
+import {
+	Setting,
+	Permission,
+	// Splash,
+} from '@views/pages/Root';
+
+const LoginStack = createStackNavigator(
+	{
+		Login: {
+			screen: Login,
+			navigationOptions: {
+				headerMode: 'none',
+				headerShown: false,
+			},
+		},
+		FindID,
+		SignUp,
+		TermsDetail,
+		FindPW,
+		FindPWStep1,
+		FindPWStep2,
+		FindPWStep3e,
+		AcceptTerms,
+		FindIDStep1,
+		FindIDStep2e,
+		SignUpStep1e,
+	},
+	{
+		initialRouteName: 'Login',
+		headerMode: 'screen',
+		header: () => null,
+		headerLayoutPreset: 'center', // 안드로이드 설정
+	},
+);
+
+// const ModalStack = createStackNavigator(
+// 	{
+// 		Login,
+// 		FindID,
+// 		SignUp,
+// 		SignUpStep1e,
+// 		FindPW,
+// 		FindPWStep1,
+// 		FindPWStep2,
+// 		FindPWStep3e,
+// 		AcceptTerms,
+// 		FindIDStep1,
+// 		FindIDStep2e,
+// 	},
+// 	{
+// 		initialRouteName: 'Login',
+// 		headerMode: 'none',
+// 		header: () => null,
+// 	},
+// );
+
+const MainStack = createStackNavigator(
+	// maincontents
+	{
+		MyWallet,
+		QRforPay,
+		TxHistory,
+		WalletSetting,
+		TxResult,
+		ChangePW,
+		MerchantList,
+		Notice,
+		SendWafl,
+		ReceiveWafl,
+		SendWaflStep1e,
+		MerchantListFullMap,
+	},
+	{
+		headerMode: 'screen',
+		headerLayoutPreset: 'center',
+		initialRouteName: 'MyWallet',
+	},
+);
+
+const DrawerNavigator = createDrawerNavigator(
+	{
+		Root: MainStack,
+	},
+	{
+		initialRouteName: 'Root',
+		contentComponent: SideMenu,
+		headerMode: 'none',
+		header: () => null,
+		drawerPosition: 'right',
+		headerLayoutPreset: 'center',
+		navigationOptions: {
+			gesturesEnabled: false,
+		},
+	},
+);
+
+//bugCode : IS01000101
+const RootNavigator = createStackNavigator(
+	{
+		Login: {
+			screen: LoginStack,
+			navigationOptions: () => ({
+				gesturesEnabled: false,
+			}),
+		},
+		Main: DrawerNavigator,
+		Setting: {
+			screen: Setting,
+			navigationOptions: () => ({
+				gesturesEnabled: false,
+			}),
+		},
+		Permission: {
+			screen: Permission,
+			navigationOptions: () => ({
+				gesturesEnabled: false,
+			}),
+		},
+	},
+	{
+		initialRouteName: 'Setting',
+		headerMode: 'none',
+		header: () => null,
+		headerLayoutPreset: 'center',
+	},
+);
+
+export { RootNavigator };
